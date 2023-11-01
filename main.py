@@ -2,7 +2,7 @@ import asyncio
 import streamlit as st
 import pandas as pd
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 import time
 
 placeholder = st.empty()
@@ -416,6 +416,7 @@ async def watch(empty1, empty2, empty3, empty4):
         empty1.header("go up hill")
         for i in range(len(extractcolumn(downhillbus, 0))):
             timenow = datetime.now()
+            timenow = timenow + timedelta(hours=8)
             stringnow = timenow.strftime("%H:%M:%S")
             currenttime = turnintominutes(stringnow)
             godownbustable = pd.DataFrame(
@@ -443,11 +444,14 @@ async def watch(empty1, empty2, empty3, empty4):
             )
             godownbustable.index = extractcolumn(downhillbus, 0)
             empty2.table(godownbustable)
+            print(stringnow)
+            print(downhillbus[i][7])
         print("Currently down")
         # r = await asyncio.sleep(5)
         empty3.header("go down hill")
         for i in range(len(extractcolumn(uphillbus, 0))):
             timenow = datetime.now()
+            timenow = timenow + timedelta(hours=8)
             stringnow = timenow.strftime("%H:%M:%S")
             currenttime = turnintominutes(stringnow)
             goupbustable = pd.DataFrame(
@@ -475,6 +479,8 @@ async def watch(empty1, empty2, empty3, empty4):
             )
             goupbustable.index = extractcolumn(uphillbus, 0)
             empty4.table(goupbustable)
+            print(stringnow)
+            print(uphillbus[i][7])
         print("Currently up")
         # r = await asyncio.sleep(5)
 
